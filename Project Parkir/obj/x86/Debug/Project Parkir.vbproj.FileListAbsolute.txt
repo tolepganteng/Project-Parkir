@@ -7,3 +7,4 @@ D:\19210223_David Mahendra\Project Parkir\Project Parkir\bin\Debug\Project Parki
 D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project Parkir.exe
 D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project Parkir.xml
 D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project Parkir.pdb
+D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project_Parkir.frmMobil.resources
