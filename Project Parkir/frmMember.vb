@@ -254,7 +254,7 @@ Public Class frmMember
         End If
     End Sub
 
-    Private Sub btnCariTglJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCariTglJoin.Click
+    Private Sub btnCariTglJoin(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCariTglJoin.Click
         Dim lCari As String
 
         lCari = Date.Parse(dtpCariTglJoin.Text).ToString("yyy-MM-dd")
