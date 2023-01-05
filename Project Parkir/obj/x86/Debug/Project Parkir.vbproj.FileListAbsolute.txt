@@ -9,3 +9,4 @@ D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project P
 D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project Parkir.pdb
 D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project_Parkir.frmMobil.resources
 D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project_Parkir.frmParkirMasuk.resources
+D:\19210223_David Mahendra\Project Parkir\Project Parkir\obj\x86\Debug\Project_Parkir.frmParkirKeluar.resources

@@ -216,7 +216,7 @@ Partial Class frmParkirMasuk
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(690, 293)
+        Me.ClientSize = New System.Drawing.Size(706, 317)
         Me.Controls.Add(Me.txtTglMasuk)
         Me.Controls.Add(Me.dgv)
         Me.Controls.Add(Me.Label2)

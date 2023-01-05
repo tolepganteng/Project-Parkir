@@ -1,6 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
-
-Public Class frmParkirMasuk
+Public Class frmParkirKeluar
     Dim conn As MySqlConnection = New MySqlConnection(connString)
     Dim connString As String = "Server=127.0.0.1,Database=db_parkir;Uid=root;"
     Dim da As MySqlDataAdapter
@@ -9,7 +8,6 @@ Public Class frmParkirMasuk
 
     Dim ds As DataSet
     Dim dt As DataTable
-
 
     Private Function Koneksi(ByVal reqState As Boolean) As Boolean
         Dim ret As Boolean = True
@@ -28,7 +26,7 @@ Public Class frmParkirMasuk
         Return ret
     End Function
 
-    Private Sub frmParkirMasuk_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmParkirKeluar_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         btnSimpan.Text = DateTime.Now()
     End Sub
 
@@ -40,6 +38,11 @@ Public Class frmParkirMasuk
         txtRateParkir.Text = RateParkir
         txtFeePerJam.Text = FeePerJam
         btnSimpan.Enabled = True
+        txtBiayaParkir.Text = 0
+        txtTanpaStruk.Text = 0
+        txtTotalBiayaParkir.Text = 0
+        ' txtCash.Text = 
+
     End Sub
 
     Private Sub SetupDGV()
@@ -80,7 +83,7 @@ Public Class frmParkirMasuk
         Return ret
     End Function
 
-    Private Sub btnReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReset.Click
+    Private Sub btnReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ResetUI()
     End Sub
 
@@ -234,11 +237,10 @@ Public Class frmParkirMasuk
     End Sub
 
 
-
     Private Sub txtNoPolisi_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNoPolisi.Leave
         Dim lCari As String
 
-        lCari = txtNoPolisi.Text.ToString()
+        lKode = txtNoPolisi.Text
 
         If Koneksi(True) Then
             Try
@@ -247,7 +249,7 @@ Public Class frmParkirMasuk
                     .Connection = conn
                     .CommandText = "SP_ParkirCariMemberID"
                     .CommandType = CommandType.StoredProcedure
-                    .Parameters.AddWithValue("_NoPolisi", lCari)
+                    .Parameters.AddWithValue("_Status", "M")
                 End With
 
                 dt = New DataTable
@@ -255,13 +257,23 @@ Public Class frmParkirMasuk
                 da.Fill(dt)
 
                 If dt.Rows.Count = 0 Then
-                    txtMemberID.Text = ""
-                    txtRateParkir.Text = 3
-                    txtFeePerJam.Text = 3000
+                    MsgBox("Tidak ditemukan", , "error")
                 Else
-                    txtMemberID.Text = dt.Rows(0)("MemberID").ToString()
-                    txtRateParkir.Text = RateParkir
-                    txtFeePerJam.Text = FeePerJam
+                    For Each drow As DataRow In dt.Rows
+                        txtNoPolisi.Text = drow.Item("NoPolisi").ToString()
+                        txtStrukID.Text = drow.Item("StrukID").ToString()
+                        txtTglMasuk.Text = drow.Item("TglMasuk").ToString()
+                        txtMemberID.Text = drow.Item("MemberID").ToString()
+                        txtRateParkir.Text = drow.Item("RateParkir").ToString()
+                        txt.FeePerJam = drow.Item("FeePerjam").ToString()
+
+                        rp = drow.Item("Rate Parkir")
+                        fp = drow.Item("FeePerJam")
+                        FeePerJam = 0 'hitung dari tanggal keluar - tanggal masuk
+
+                        'hitung biaya parkir
+
+                    Next
                 End If
 
             Catch ex As Exception
@@ -270,4 +282,35 @@ Public Class frmParkirMasuk
         End If
     End Sub
 
+    Private Sub chkTanpaStruk_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkTanpaStruk.SelectedIndexChanged
+        If chkTanpaStruk.Checked = True Then
+            txtTanpaStruk.Text = 15000
+            txtNoPolisi.Text = True
+            MessageBox.Show("Masukan nomor polisi, akhiri dengan ENTER", "info")
+        Else
+            txtTanpaStruk.Text = 0
+            txtNoPolisi.Text = False
+        End If
+        HitungTotalParkir()
+    End Sub
+
+    Private Sub HitungTotalParkir()
+        Dim bp As Long, ts As Long, tp As Long
+
+        bp = Long.Parse(txtBiayaParkir.Text)
+        ts = Long.Parse(txtTanpaStruk.Text)
+        tp = bp + ts
+        txtTotalBiayaParkir.Text = tp
+    End Sub
+
+    Private Sub HitungBiayaParkir(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkTanpaStruk.SelectedIndexChanged
+        Dim bp As Long
+
+        bp = rp * fp * jam
+        txtBiayaParkir.Text = bp
+    End Sub
+
+    Private Sub btnReset_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReset.Click
+        ResetUI()
+    End Sub
 End Class

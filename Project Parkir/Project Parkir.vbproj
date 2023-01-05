@@ -86,6 +86,12 @@
     <Compile Include="frmMobil.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmParkirKeluar.Designer.vb">
+      <DependentUpon>frmParkirKeluar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmParkirKeluar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmParkirMasuk.Designer.vb">
       <DependentUpon>frmParkirMasuk.vb</DependentUpon>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMobil.resx">
       <DependentUpon>frmMobil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmParkirKeluar.resx">
+      <DependentUpon>frmParkirKeluar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmParkirMasuk.resx">
       <DependentUpon>frmParkirMasuk.vb</DependentUpon>
